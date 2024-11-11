@@ -20,8 +20,8 @@ public class ArtigoController {
     }
 
     @DeleteMapping("/{artigoId}")
-    public void deletarArtigo(@RequestHeader("Authorization") String token, @PathVariable String artigoId) {
-        artigoService.deletarArtigo(token, artigoId);
+    public Artigo deletarArtigo(@RequestHeader("Authorization") String token, @PathVariable String artigoId) {
+        return artigoService.deletarArtigo(token, artigoId);
     }
 
     @GetMapping

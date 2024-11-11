@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,22 +23,26 @@ public class ArtigoService {
         UsuarioDTO userInfo = validarToken(token);
 
         if ("ADMIN".equalsIgnoreCase(userInfo.getPapel())) {
+            artigo.setDataCriacao(LocalDateTime.now());
             return artigoRepository.save(artigo);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas usuários com papel ADMIN podem criar artigos.");
         }
     }
 
-    public void deletarArtigo(String token, String artigoId) {
+    public Artigo deletarArtigo(String token, String artigoId) {
         UsuarioDTO userInfo = validarToken(token);
 
         if ("ADMIN".equalsIgnoreCase(userInfo.getPapel())) {
             Artigo artigo = artigoRepository.findById(artigoId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artigo não encontrado com ID: " + artigoId));
+
             artigoRepository.delete(artigo);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas usuários com papel ADMIN podem deletar artigos.");
         }
+
+        return null;
     }
 
     public List<Artigo> listarTodosOsArtigos(String token) {
@@ -96,12 +101,5 @@ public class ArtigoService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Erro ao validar token: " + e.getMessage());
         }
     }
-
-
-
-
-
-
-
 
 }

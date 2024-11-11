@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "artigos")
 @Getter
 @Setter
@@ -14,5 +16,5 @@ public class Artigo {
     private String titulo;
     private String conteudo;
     private String autor;
-    private String dataCriacao;
+    private LocalDateTime dataCriacao;
 }
