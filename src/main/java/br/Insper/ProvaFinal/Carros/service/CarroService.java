@@ -30,7 +30,8 @@ public class CarroService {
             Carro carro = carroRepository.findById(carroId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Carro não encontrado com ID: " + carroId));
 
-            carro.setComprador(cpf);
+            carro.setComprador_cpf(cpf);
+            carro.setComprador_email(userInfo.get("email").toString());
             return carroRepository.save(carro);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF do usuário não disponível para registrar a compra.");

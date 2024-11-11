@@ -15,5 +15,6 @@ public class Carro {
     private String modelo;
     private String cor;
     private Integer ano;
-    private String comprador;
+    private String comprador_cpf;
+    private String comprador_email;
 }
