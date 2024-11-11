@@ -38,11 +38,11 @@ public class ArtigoService {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artigo não encontrado com ID: " + artigoId));
 
             artigoRepository.delete(artigo);
+            return artigo;
+
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas usuários com papel ADMIN podem deletar artigos.");
         }
-
-        return null;
     }
 
     public List<Artigo> listarTodosOsArtigos(String token) {
